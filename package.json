@@ -1,42 +1,33 @@
 {
   "name": "rss-reader-vue",
-  "version": "0.0.1",
-  "description": "Simple RSS feed reader using VueJs",
-  "author": "Laurynas Baltrenas",
+  "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "autoprefixer": "~7.1.1",
-    "babel-core": "~6.24.1",
-    "babel-loader": "~7.0.0",
-    "babel-plugin-transform-runtime": "~6.23.0",
-    "babel-preset-env": "~1.5.1",
-    "babel-preset-es2015": "~6.24.1",
-    "babel-runtime": "~6.23.0",
-    "css-loader": "~0.28.3",
-    "eslint": "~3.19.0",
-    "eslint-loader": "~1.7.1",
-    "eslint-plugin-html": "^2.0.3",
-    "node-sass": "~4.5.3",
-    "postcss-cli": "~4.0.0",
-    "promise-polyfill": "~6.0.2",
-    "sass-loader": "~6.0.5",
-    "stylelint": "~7.10.1",
-    "stylelint-config-standard": "^16.0.0",
-    "stylelint-processor-html": "~1.0.0",
-    "vue": "~2.3.3",
-    "vue-loader": "~12.1.1",
-    "vue-template-compiler": "~2.3.3",
-    "webpack": "~2.6.1",
-    "webpack-dev-server": "~2.4.5",
-    "whatwg-fetch": "~2.0.3"
-  },
   "scripts": {
-    "build": "webpack --progress",
-    "lint": "npm run lint:css && npm run lint:js",
-    "lint:css": "stylelint src/sass/*.scss src/**/*.vue --syntax scss",
-    "lint:js": "eslint --ext .js,.vue src"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit",
+    "lint:style": "vue-cli-service lint:style"
   },
-  "browserslist": [
-    "> 1%"
-  ]
+  "dependencies": {
+    "promise-polyfill": "^8.1.0",
+    "vue": "^2.5.17",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "devDependencies": {
+    "@ascendancyy/vue-cli-plugin-stylelint": "^1.1.0",
+    "@vue/cli-plugin-babel": "^3.0.1",
+    "@vue/cli-plugin-eslint": "^3.0.1",
+    "@vue/cli-plugin-unit-jest": "^3.0.1",
+    "@vue/cli-service": "^3.0.1",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.0.1",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "stylelint-config-standard": "^18.2.0",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "description": "Simple RSS feed reader using VueJs",
+  "author": "Laurynas Baltrenas"
 }

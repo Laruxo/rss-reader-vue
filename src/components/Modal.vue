@@ -17,7 +17,6 @@
 
 <script>
   export default {
-    name: 'modal',
     props: ['item', 'show'],
   };
 </script>

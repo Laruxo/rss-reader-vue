@@ -2,11 +2,27 @@
 
 Using Vue.js
 
-### Try it out
+## Project setup
 ```
-$ npm i
-$ npm run build
+yarn install
 ```
 
-Open `public/index.html` in your browser.
+### Compiles and hot-reloads for development
+```
+yarn run serve
+```
 
+### Compiles and minifies for production
+```
+yarn run build
+```
+
+### Lints and fixes files
+```
+yarn run lint
+```
+
+### Run your unit tests
+```
+yarn run test:unit
+```

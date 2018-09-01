@@ -9,7 +9,6 @@
   import Feed from './components/Feed.vue';
 
   export default {
-    name: 'app',
     components: {
       Feed,
     },

@@ -50,7 +50,6 @@
   };
 
   export default {
-    name: 'feed',
     components: {
       FeedInput,
       Modal,

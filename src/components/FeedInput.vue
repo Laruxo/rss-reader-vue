@@ -23,7 +23,6 @@
   import 'whatwg-fetch';
 
   export default {
-    name: 'feed-input',
     data() {
       return {
         feedUrl: localStorage.getItem('lastUrl') || 'http://waitbutwhy.com/feed',
