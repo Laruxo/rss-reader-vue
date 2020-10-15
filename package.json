@@ -2,32 +2,48 @@
   "name": "rss-reader-vue",
   "version": "0.1.0",
   "private": true,
+  "description": "Simple RSS feed reader using Vue.js 3",
+  "author": "Laurynas Baltrenas",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit",
-    "lint:style": "vue-cli-service lint:style"
+    "test": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "promise-polyfill": "^8.1.0",
-    "vue": "^2.5.17",
-    "whatwg-fetch": "^2.0.4"
+    "vue": "^3.0.1"
   },
   "devDependencies": {
-    "@ascendancyy/vue-cli-plugin-stylelint": "^1.1.0",
-    "@vue/cli-plugin-babel": "^3.0.1",
-    "@vue/cli-plugin-eslint": "^3.0.1",
-    "@vue/cli-plugin-unit-jest": "^3.0.1",
-    "@vue/cli-service": "^3.0.1",
-    "@vue/test-utils": "^1.0.0-beta.20",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^23.0.1",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.1",
-    "stylelint-config-standard": "^18.2.0",
-    "vue-template-compiler": "^2.5.17"
+    "@types/jest": "^24.9.1",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "@vue/cli-plugin-eslint": "^4.5.7",
+    "@vue/cli-plugin-typescript": "^4.5.7",
+    "@vue/cli-plugin-unit-jest": "^4.5.7",
+    "@vue/cli-service": "^4.5.7",
+    "@vue/compiler-sfc": "^3.0.1",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "@vue/test-utils": "^2.0.0-beta.6",
+    "eslint": "^7.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-vue": "^7.0.1",
+    "lint-staged": "^10.4.0",
+    "postcss-normalize": "^9.0.0",
+    "prettier": "^2.1.2",
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.3",
+    "typescript": "^3.9.7",
+    "ts-jest": "^26.4.1",
+    "vue-jest": "^5.0.0-alpha.5"
   },
-  "description": "Simple RSS feed reader using VueJs",
-  "author": "Laurynas Baltrenas"
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
 }

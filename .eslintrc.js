@@ -4,14 +4,18 @@ module.exports = {
     node: true,
     es6: true,
   },
-  'extends': [
-    'plugin:vue/essential',
-    'eslint:recommended'
+  extends: [
+    "plugin:vue/vue3-recommended",
+    "@vue/typescript/recommended",
+    "@vue/prettier",
+    "@vue/prettier/@typescript-eslint",
   ],
-  rules: {
-    'no-console': 'off',
-  },
-  parserOptions: {
-    parser: 'babel-eslint'
-  }
+  overrides: [
+    {
+      files: ["src/**/*.test.{j,t}s?(x)"],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };

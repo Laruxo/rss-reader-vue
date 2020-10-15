@@ -1,84 +1,117 @@
 <template>
-  <transition name="modal">
-    <div class="modal" v-show="show">
-      <div class="modal__backdrop" @click="$emit('close')"></div>
-      <transition name="modal__dialog">
-        <dialog class="modal__dialog" v-if="show && item">
-          <a class="modal__close" @click="$emit('close')">&times;</a>
-          <h2>{{ item.title }}</h2>
-          <a class="button modal__action" :href="item.link" target="_blank">Read Full Story...</a>
-          <p v-html="item.description"></p>
-          <p v-html="item.content"></p>
-        </dialog>
-      </transition>
+  <teleport to="body">
+    <div class="modal">
+      <div class="modal__backdrop" @click="$emit('close')" />
+      <dialog
+        class="modal__dialog"
+        :aria-label="item.title"
+        role="alertdialog"
+        aria-modal="true"
+        open
+        @keyup.esc.prevent="$emit('close')"
+      >
+        <h2 class="modal__header">{{ item.title }}</h2>
+        <button ref="closeButton" class="modal__close" type="button" @click="$emit('close')">
+          &times;
+        </button>
+
+        <a class="button modal__action" :href="item.link" target="_blank" rel="noopener noreferrer">
+          Read Full Story
+        </a>
+
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <p v-if="item.description !== item.content" v-html="item.description"></p>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <p v-html="item.content"></p>
+      </dialog>
     </div>
-  </transition>
+  </teleport>
 </template>
 
-<script>
-  export default {
-    props: ['item', 'show'],
-  };
+<script lang="ts">
+import { defineComponent, ref, onMounted, PropType } from "vue";
+
+export default defineComponent({
+  props: {
+    item: {
+      type: Object as PropType<FeedItem>,
+      default: null,
+    },
+  },
+  emits: ["close"],
+  setup() {
+    const closeButton = ref<HTMLElement | null>(null);
+    onMounted(() => {
+      closeButton.value?.focus();
+    });
+
+    return { closeButton };
+  },
+});
 </script>
 
-<style lang="scss">
-  @import '../sass/variables';
+<style lang="scss" scoped>
+@import "../style/variables";
 
-  .modal {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    align-items: center;
-    transition-duration: .5s;
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
 
-    &__backdrop {
-      width: 100%;
-      height: 100%;
-      background: $shadow-color;
-      position: absolute;
-    }
+.modal__backdrop {
+  width: 100%;
+  height: 100%;
+  background: $shadow-color;
+  position: absolute;
+}
 
-    &__close {
-      position: absolute;
-      right: $base-margin;
-      top: $base-margin;
-      cursor: pointer;
-      font-size: 2rem;
-      width: 1rem;
-      line-height: 1rem;
-    }
+.modal__close {
+  position: absolute;
+  right: $base-margin;
+  top: $base-margin;
+  font-size: $large-font-size;
+  line-height: 1rem;
+  padding: 0;
+  background: none;
+  color: $primary-text-color;
 
-    &__dialog {
-      display: block;
-      margin: 0 5%;
-      height: 90vh;
-      text-align: center;
-      padding: $base-margin;
-      overflow-y: scroll;
-      border: 0;
-      position: absolute;
-      left: 0;
-      right: 0;
-      transition: transform .5s ease-out;
-
-      img {
-        max-width: 100%;
-        display: block;
-        margin: 0 auto;
-      }
-
-      &-enter {
-        transform: translateY(100%);
-      }
-
-      &-leave-active {
-        transition-timing-function: ease-in;
-        transform: translateY(100%);
-      }
-    }
+  &:hover,
+  &:focus {
+    opacity: 0.7;
   }
+}
+
+.modal__dialog {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: $base-margin;
+  border: 0;
+  margin: 0;
+
+  .modal__header {
+    margin-top: 0;
+    margin-bottom: $base-margin;
+    padding-right: $large-margin;
+  }
+
+  .modal__action {
+    margin-bottom: $base-margin;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+}
 </style>

@@ -1,0 +1,23 @@
+@import "./variables";
+
+.error {
+  color: $invalid-color;
+}
+
+.spinner {
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db; /* Blue */
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
