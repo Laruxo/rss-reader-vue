@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Simple RSS feed reader using Vue.js 3",
-  "author": "Laurynas Baltrenas",
+  "author": "Laruxo (https://github.com/Laruxo)",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
