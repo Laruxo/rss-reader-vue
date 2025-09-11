@@ -1,61 +1,29 @@
 <template>
-  <li
-    class="feed__item"
-    tabIndex="0"
-    role="button"
-    @click="$emit('click')"
-    @keypress.self.enter.space.prevent="$emit('click')"
-  >
-    <div class="feed__item-title">{{ item.title }}</div>
-    <span class="feed__item-date">{{ item.pubDate }}</span>
-    <p class="feed__item-description">{{ firstParagraph }}</p>
+  <li class="border-t border-gray-200">
+    <button
+      class="w-full text-left p-4 outline-none hover:bg-gray-200 focus-visible:bg-gray-200"
+      @click="$emit('click')"
+      @keydown.self.enter.space.prevent="$emit('click')"
+    >
+      <strong class="block">{{ item.title }}</strong>
+      <span class="block text-xs">{{ item.pubDate }}</span>
+      <span class="block mt-2">{{ firstParagraph }}</span>
+    </button>
   </li>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script lang="ts" setup>
+import { computed } from 'vue'
 
-export default defineComponent({
-  props: {
-    item: {
-      type: Object as PropType<FeedItem>,
-      required: true,
-    },
-  },
-  emits: ["click"],
-  computed: {
-    firstParagraph(): string {
-      const div = document.createElement("div");
-      div.innerHTML = this.item.description;
-      if (!div.firstElementChild) {
-        return this.item.description;
-      }
-      return div.innerText.substring(0, 120);
-    },
-  },
-});
-</script>
+const props = defineProps<{ item: FeedItem }>()
+defineEmits(['click'])
 
-<style lang="scss" scoped>
-@import "../style/variables";
-
-.feed__item {
-  border-top: 1px solid $active-color;
-  padding: $base-margin;
-  cursor: pointer;
-  outline: none;
-
-  &:hover,
-  &:focus {
-    background: $active-color;
+const firstParagraph = computed((): string => {
+  const div = document.createElement('div')
+  div.innerHTML = props.item.description
+  if (!div.firstElementChild) {
+    return props.item.description
   }
-}
-
-.feed__item-date {
-  font-size: $small-font-size;
-}
-
-.feed__item-description {
-  margin: $small-margin 0 0;
-}
-</style>
+  return div.innerText.substring(0, 120)
+})
+</script>

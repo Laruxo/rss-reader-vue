@@ -1,106 +1,64 @@
 <template>
-  <div class="feed__header">
-    <h3>{{ title }}</h3>
-    <button class="feed__header-button" @click="sortBy('title')">
-      Title {{ sorting.field === "title" ? (sorting.dir === "asc" ? "&darr;" : "&uarr;") : "" }}
+  <div class="flex items-center my-4">
+    <h1 class="flex-1 truncate">{{ title }} Feed</h1>
+    <button class="button ml-2" @click="sortBy('title')">
+      Title {{ sorting.field === 'title' ? direction : '' }}
     </button>
-    <button class="feed__header-button" @click="sortBy('pubDate')">
-      Date {{ sorting.field === "pubDate" ? (sorting.dir === "asc" ? "&darr;" : "&uarr;") : "" }}
+    <button class="button ml-2" @click="sortBy('pubDate')">
+      Date {{ sorting.field === 'pubDate' ? direction : '' }}
     </button>
   </div>
-  <ol class="feed__list">
-    <ListItem v-for="item in sortedFeed" :key="item.guid" :item="item" @click="activeItem = item" />
+  <ol>
+    <ListItem
+      v-for="item in sortedFeed"
+      :key="item.guid"
+      :item="item"
+      @click="activeItem = item"
+    />
   </ol>
-  <Modal v-if="activeItem" :item="activeItem" @close="activeItem = null" />
+  <ItemModal v-if="activeItem" :item="activeItem" @close="activeItem = null" />
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, PropType } from "vue";
-import ListItem from "./ListItem.vue";
-import Modal from "./Modal.vue";
+<script lang="ts" setup>
+import { ref, computed } from 'vue'
+import ListItem from './ListItem.vue'
+import ItemModal from './ItemModal.vue'
 
-type SortField = "title" | "pubDate";
-type SortDir = "asc" | "desc";
-
-interface SortingState {
-  field: SortField;
-  dir: SortDir;
+type SortField = 'title' | 'pubDate'
+type SortDir = 'asc' | 'desc'
+type SortingState = {
+  field: SortField
+  dir: SortDir
 }
 
-export default defineComponent({
-  components: {
-    ListItem,
-    Modal,
-  },
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    feed: {
-      type: Array as PropType<FeedItem[]>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const activeItem = ref<FeedItem | null>(null);
+const props = defineProps<{ title: string; feed: FeedItem[] }>()
 
-    const sorting = ref<SortingState>({ field: "pubDate", dir: "asc" });
-    const sortedFeed = computed<FeedItem[]>(() => {
-      const _feed = props.feed.slice(0);
-      const multiplier = sorting.value.dir === "asc" ? 1 : -1;
-      if (sorting.value.field === "title") {
-        _feed.sort((a, b) => (a.title || "").localeCompare(b.title || "") * multiplier);
-      } else if (sorting.value.field === "pubDate") {
-        _feed.sort(
-          (a, b) => (new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()) * multiplier
-        );
-      }
-      return _feed;
-    });
-    function sortBy(field: SortField) {
-      sorting.value = { field, dir: sorting.value.dir === "asc" ? "desc" : "asc" };
-    }
+const activeItem = ref<FeedItem | null>(null)
 
-    return { activeItem, sorting, sortedFeed, sortBy };
-  },
-});
-</script>
-
-<style lang="scss" scoped>
-@import "../style/variables";
-
-.feed__header {
-  display: flex;
-  align-items: center;
-  margin: $base-margin 0;
-
-  h3 {
-    flex: 1;
-    margin: 0;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+const sorting = ref<SortingState>({ field: 'pubDate', dir: 'asc' })
+const direction = computed(() =>
+  sorting.value.dir === 'asc' ? '\u2193' : '\u2191',
+)
+const sortedFeed = computed<FeedItem[]>(() => {
+  const _feed = props.feed.slice(0)
+  const multiplier = sorting.value.dir === 'asc' ? 1 : -1
+  if (sorting.value.field === 'title') {
+    _feed.sort(
+      (a, b) => (a.title || '').localeCompare(b.title || '') * multiplier,
+    )
+  } else if (sorting.value.field === 'pubDate') {
+    _feed.sort(
+      (a, b) =>
+        (new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()) *
+        multiplier,
+    )
+  }
+  return _feed
+})
+function sortBy(field: SortField) {
+  sorting.value = {
+    field,
+    dir: sorting.value.dir === 'asc' ? 'desc' : 'asc',
   }
 }
-
-.feed__header-button {
-  margin-left: $small-margin;
-}
-
-.feed__list {
-  padding: 0;
-  list-style: none;
-  margin: 0;
-  overflow-x: hidden;
-}
-
-.item-enter {
-  transform: translateX(100%);
-}
-
-.item-leave-active {
-  transition-timing-function: ease-in;
-  transform: translateX(-100%);
-}
-</style>
+</script>

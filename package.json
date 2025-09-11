@@ -1,49 +1,48 @@
 {
   "name": "rss-reader-vue",
-  "version": "0.1.0",
-  "private": true,
-  "description": "Simple RSS feed reader using Vue.js 3",
+  "description": "Simple RSS feed reader created using Vue.js 3",
   "author": "Laruxo (https://github.com/Laruxo)",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "test": "vue-cli-service test:unit"
+    "prepare": "husky",
+    "dev": "vite",
+    "build": "vue-tsc --build && vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --build",
+    "test": "vitest",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "vue": "^3.0.1"
+    "vue": "^3.5.21",
+    "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
-    "@types/jest": "^24.9.1",
-    "@typescript-eslint/eslint-plugin": "^4.4.1",
-    "@typescript-eslint/parser": "^4.4.1",
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-plugin-typescript": "^5.0.8",
-    "@vue/cli-plugin-unit-jest": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
-    "@vue/compiler-sfc": "^3.0.1",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/eslint-config-typescript": "^7.0.0",
-    "@vue/test-utils": "^2.0.0-beta.6",
-    "eslint": "^7.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-vue": "^7.0.1",
-    "lint-staged": "^10.4.0",
-    "postcss-normalize": "^9.0.0",
-    "prettier": "^2.1.2",
-    "sass": "^1.27.0",
-    "sass-loader": "^10.0.3",
-    "typescript": "^3.9.7",
-    "ts-jest": "^29.3.2",
-    "vue-jest": "^5.0.0-alpha.10"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
+    "@eslint/js": "^9.35.0",
+    "@tailwindcss/vite": "^4.1.13",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/vue": "^8.1.0",
+    "@types/node": "^24.3.1",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.6.0",
+    "eslint": "^9.35.0",
+    "eslint-plugin-vue": "^10.4.0",
+    "happy-dom": "^18.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.5",
+    "vitest": "^3.2.4",
+    "vue-tsc": "^3.0.6"
   },
   "lint-staged": {
-    "*.{ts,tsx,vue}": [
-      "vue-cli-service lint",
-      "git add"
-    ]
+    "*.{ts,vue,js}": "eslint --fix",
+    "*.{ts,js,css,md,json,yml}": "prettier --write"
+  },
+  "engines": {
+    "node": ">=24.x"
   }
 }
