@@ -29,7 +29,7 @@
     "@vue/eslint-config-typescript": "^14.6.0",
     "eslint": "^9.35.0",
     "eslint-plugin-vue": "^10.4.0",
-    "happy-dom": "^20.0.0",
+    "happy-dom": "^20.0.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
     "prettier": "^3.6.2",
